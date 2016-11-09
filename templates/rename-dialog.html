@@ -1,0 +1,62 @@
+<div class="pop-over-header">
+  <span class="pop-over-header-title">Rename Cards</span>
+  <a href="#" class="pop-over-header-close-btn icon-sm icon-close ma-rd-btn-close">
+  </a>
+</div>
+
+<div class="pop-over-content u-fancy-scrollbar">
+  <div class="ma-rd-lists">
+    <div class="ma-rd-list">
+      <label>Selection</label>
+      <select id="ma-rd-selection" class="ma-rd-list u-fancy-scrollbar" size="20" multiple></select>
+      <div class="ma-rd-foot">
+        <a href="#" class="ma-rd-select-all">Select all</a>
+        <a href="#" class="ma-rd-unselect-all">Unselect all</a>
+      </div>
+    </div>
+    <div class="ma-rd-list">
+      <label>Preview</label>
+      <select id="ma-rd-preview" class="ma-rd-list u-fancy-scrollbar" size="20" multiple disabled></select>
+      <div class="ma-rd-foot"></div>
+    </div>
+  </div>
+
+  <div class="ma-rd-pattern">
+    <form>
+      <div class="form-grid">
+        <div class="button-link setting form-grid-child">
+          <span class="label">Pattern</span>
+          <span class="value">...</span>
+          <label>Pattern</label>
+          <select class="ma-rd-select-pattern">
+          </select>
+        </div>
+        <div class="form-grid-child">
+          <input class="secondary confirm mod-compact ma-rd-apply" type="submit" value="Manage Pattern">
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div class="button-link setting form-grid-child">
+          <span class="label">RegExp</span>
+          <span class="value"></span>
+          <label>RegExp</label>
+          <input id="ma-rd-regex">
+        </div>
+
+
+        <div class="form-grid">
+          <div class="button-link setting form-grid-child">
+            <span class="label">Replace</span>
+            <span class="value"></span>
+            <label>RegExp</label>
+            <input id="ma-rd-replace">
+          </div>
+        </div>
+    </form>
+  </div>
+
+  <div class="ma-rd-controls">
+    <input class="primary confirm mod-compact ma-rd-apply" type="submit" value="Rename Cards">
+  </div>
+</div>

@@ -1,0 +1,32 @@
+{
+  "name": "MassTrello",
+  "version": "1.0",
+  "description": "Add mass actions to Trello",
+  "content_scripts": [
+    {
+      "matches": ["https://trello.com/b/*"],
+      "js": [
+        "jquery-3.1.1.min.js",
+        "client.js",
+
+        "actions/rename.js",
+        "actions/rename/pattern-dialog.js",
+        "actions/rename/rename-dialog.js",
+        "actions/move-to.js",
+        "util/trello.js",
+        "mass-action.js"
+      ],
+
+      "css": [
+        "mass-action.css"
+      ]
+    }
+  ],
+  "manifest_version" : 2,
+  "web_accessible_resources": [
+    "templates/*"
+  ],
+  "permissions": [
+    "storage"
+  ]
+}

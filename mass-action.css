@@ -1,0 +1,61 @@
+.ma-rd-list {
+  width: 48%;
+  display: inline-block;
+  padding: 2px 10px;
+  border: 0;
+  margin: 0;
+  vertical-align: top;
+}
+
+.ma-rd-list .ma-rd-foot {
+    margin: 0;
+    height: 20px;
+    padding: 10px 20px;
+    background-color: #e2e4e6;
+    border-radius: 0 0 3px 3px;
+}
+
+.ma-rd-list select {
+    padding: 0 10px 0 10px;
+    background-color: #e2e4e6;
+    margin: 0;
+    margin-bottom: 0 !important;
+    max-height: 250px;
+}
+
+.ma-rd-list option {
+  background-color: #fff;
+  color: #000;
+}
+
+.ma-rd-bold {
+  font-weight: bolder;
+}
+
+.ma-rd-list option:hover{
+  background-color: #e2e4e6;
+  color: #000;
+}
+
+.ma-rd-list option:checked{
+  background-color: #0079bf;
+  color: #fff;
+}
+
+.ma-rd-list label {
+  border-radius: 3px 3px 0 0;
+  background-color: #e2e4e6;
+  color: #4d4d4d;
+  font-size: 1.2em;
+  padding: 5px 10px;
+  margin: 0;
+}
+
+.ma-rd-opt {
+  padding: 6px 2px;
+  margin: 2px 0;
+  font-size: 1.1em;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
