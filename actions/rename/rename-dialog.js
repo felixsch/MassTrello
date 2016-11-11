@@ -77,9 +77,8 @@ var renameDialog = {
       Trello.put("cards/" + $(this).val() + "/name", {value: new_name}, function() {
         console.log("Updated card!");
       });
-    }).then(function() {
-      renameDialog.hide();
     });
+    renameDialog.hide();
   },
 
   /*
@@ -105,7 +104,7 @@ var renameDialog = {
       return text.replace(RegExp(regex), repl);
   },
 
-  _set_dialog_events: function() {
+  _set_dialog_events: function($dialog) {
     // make scrollbars synchron
     $dialog.find('#ma-rd-selection').scroll(function(){
       $('#ma-rd-preview').scrollTop($(this).scrollTop());

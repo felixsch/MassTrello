@@ -5,10 +5,8 @@ function trello_find_list_by_obj(obj, callback) {
   if (board == undefined || name.length < 1)
     return undefined;
 
-  console.log("search name = " + name);
   Trello.get("boards/" + board + "/lists", { cards: "all" }, function(lists) {
     list = lists.find(function(l) {
-      console.log(l.name);
       return l.name == name;
     });
     callback.apply(list);

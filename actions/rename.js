@@ -17,6 +17,11 @@ function rename_callbacks() {
     renameDialog.show(current_list);
   });
 
+  $(document).on('click', '.ma-pd-show', function() {
+    patternDialog.show();
+    return false;
+  });
+
   $(document).on('click', '.ma-rd-btn-close', function() {
     renameDialog.hide();
   });
