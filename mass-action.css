@@ -51,6 +51,30 @@
   margin: 0;
 }
 
+.ma-rd-pattern {
+  padding: 40px 0 0 10px;
+  width: 20%;
+  display: inline-block;
+}
+
+.ma-rd-description-wrapper {
+  padding: 40px 10px 0 0;
+  vertical-align: top;
+  width: 77.5%;
+  display: inline-block;
+}
+
+.ma-rd-description {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 20px;
+  background-color: #e2e4e6;
+}
+
+.ma-input {
+  width: 99%;
+}
+
 .ma-rd-opt {
   padding: 6px 2px;
   margin: 2px 0;

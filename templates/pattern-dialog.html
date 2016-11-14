@@ -1,37 +1,32 @@
 <div class="pop-over-header">
   <span class="pop-over-header-title">Manage Pattern</span>
-  <a href="#" class="pop-over-header-close-btn icon-sm icon-close ma-rd-btn-close">
+  <a href="#" class="pop-over-header-close-btn icon-sm icon-close ma-pd-btn-close">
   </a>
 </div>
 
 <div class="pop-over-content u-fancy-scrollbar">
-
-  <div class="ma-pd-select">
-    <select class="ma-pd-selection" size="5" multiple>
-    </select>
+  <div class="ma-rd-controls">
+    <div class="form-grid">
+      <div class="form-grid-child">
+        <label>Name</label>
+        <input id="ma-pd-name" class="ma-input">
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="form-grid-child">
+        <label>RegExp</label>
+        <input id="ma-pd-regex" class="ma-input">
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="form-grid-child">
+        <label>Replace</label>
+        <input id="ma-pd-replace" class="ma-input">
+      </div>
+    </div>
   </div>
-  <div class="ma-pd-edit">
-
-    <div class="form-grid">
-      <div class="form-grid-child">
-        <label>RegExp</label>
-        <input id="ma-rd-regex">
-      </div>
-    </div>
-
-    <div class="form-grid">
-      <div class="form-grid-child">
-        <label>RegExp</label>
-        <input id="ma-rd-regex">
-      </div>
-    </div>
-
-    <div class="ma-rd-controls">
-      <input class="primary confirm mod-compact ma-rd-apply" type="submit" value="Save">
-    </div>
-
-    <div class="ma-rd-controls">
-      <input class="primary confirm mod-compact ma-rd-apply" type="submit" value="Delete">
-    </div>
+  <div class="ma-pd-controls">
+    <input class="primary confirm mod-compact ma-pd-save" type="submit" value="Save pattern">
+  </div>
   </div>
 </div>

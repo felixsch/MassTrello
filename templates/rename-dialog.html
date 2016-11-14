@@ -27,29 +27,43 @@
         <span class="label">Pattern</span>
         <span class="value">...</span>
         <label>Pattern</label>
-        <select class="ma-rd-select-pattern">
+        <select class="ma-input" id="ma-rd-select-pattern">
         </select>
       </div>
+    </div>
+    <div class="form-grid">
       <div class="form-grid-child">
-        <input class="secondary confirm mod-compact ma-pd-show" type="submit" value="Manage Pattern">
+        <input class="secondary confirm mod-compact ma-pd-add" type="submit" value="Add">
+        <input class="secondary confirm mod-compact ma-pd-modify" type="submit" value="Modify">
+        <input class="secondary confirm mod-compact ma-pd-delete" type="submit" value="Delete">
       </div>
     </div>
 
     <div class="form-grid">
       <div class="form-grid-child">
         <label>RegExp</label>
-        <input id="ma-rd-regex">
+        <input id="ma-rd-regex" class="ma-input">
       </div>
-
 
       <div class="form-grid">
         <div class="form-grid-child">
-          <label>RegExp</label>
-          <input id="ma-rd-replace">
+          <label>Replace</label>
+          <input id="ma-rd-replace" class="ma-input">
         </div>
       </div>
+    </div>
   </div>
-
+  <div class="ma-rd-description-wrapper">
+    <div class="ma-rd-description">
+      <p><strong>How to use the Rename Dialog</strong></p>
+      <p>1) Select all cards you want to rename by clicking the card names (multiple selection works with shift/ctrl) or 'select all'</p>
+      <p>2a) Select a pattern from the already defined pattern list (or modify/delete/add new patterns)</p>
+      <p>or</p>
+      <p>2b) Enter your own regexp / replace combination. The regexp input defines which parts of the card names should be matched. To use specific parts wrap them into matching groups (e.g (.*) matches the whole name). You can now use the replace input to define how the new name should look like: $1-9 is the matched group from the regex; $i a running index from top to down.
+      </p>
+      <p>3) Apply changes to all selected cards by pressing the rename button</p>
+    </div>
+  </div>
   <div class="ma-rd-controls">
     <input class="primary confirm mod-compact ma-rd-apply" type="submit" value="Rename Cards">
   </div>

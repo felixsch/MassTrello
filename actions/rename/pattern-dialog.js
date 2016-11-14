@@ -7,42 +7,76 @@ var patternDialog = {
       patternDialog._dialog_skel = skeleton;
     });
 
-    // load patterns from store
-    chrome.storage.local.get('patterns', function(result) {
-      patternDialog._patterns = result.patterns;
-    });
+    // // load patterns from store
+    // chrome.storage.local.get('patterns', function(result) {
+    //   if (! $.isEmptyObject(result)) {
+    //     patternDialog._patterns = result.patterns;
+    //   }
+    // });
   },
 
-  populate: function(callback) {
+  populate: function(name, regex, replace, callback) {
     $dialog = $(this._dialog_skel);
     this._set_dialog_events($dialog);
 
-    callback.apply($dialog);
+    $dialog.find('#ma-pd-name').val(name);
+    $dialog.find('#ma-pd-regex').val(regex);
+    $dialog.find('#ma-pd-replace').val(replace);
 
+    callback.apply($dialog);
   },
 
-  show: function() {
-    this.populate(function() {
+
+  modify: function(name, callback) {
+    regex   = "";
+    replace = "";
+    modify  = false;
+
+    if (name != "") {
+      pattern = this.pattern(name);
+      regex   = pattern.regex;
+      replace = pattern.replace;
+      modify  = true;
+    }
+
+    this.populate(name, regex, replace, function() {
       $('.pop-over').html(this);
       $('.pop-over').css({
-        left: "10%",
-        top: "10%",
-        width: "80%"
+        left: "40%",
+        top: "40%",
+        width: "20%"
+      });
+      $(this).find('.ma-pd-save').click(function() {
+        console.log('save everything');
+        name = $dialog.find('#ma-pd-name').val();
+        reg  = $dialog.find('#ma-pd-regex').val();
+        rep  = $dialog.find('#ma-pd-replace').val();
+
+        patternDialog._patterns[name] = {regex: reg, rep};
+        patternDialog._save();
+
+        callback.apply(patternDialog._patterns[name]);
       });
     });
-
   },
 
-  hide: function() {
-
+  delete: function(name) {
+    if (patternDialog._patterns.hasOwnProperty(name)) {
+      delete patternDialog[name];
+    }
+    patternDialog._save();
   },
 
-  save: function() {
+
+  patterns: function() {
+    console.log(patternDialog._patterns);
+    return patternDialog._patterns;
+  },
+
+  _save: function() {
     chrome.storage.local.set({'patterns': this._patterns});
   },
 
   _set_dialog_events: function($dialog) {
-
   }
-
 }

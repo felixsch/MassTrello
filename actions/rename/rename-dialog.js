@@ -19,6 +19,7 @@ var renameDialog = {
   populate: function(listobj, callback) {
     $dialog = $(this._dialog_skel);
     this._set_dialog_events($dialog);
+    this.refresh_pattern();
 
     trello_find_list_by_obj(listobj, function () {
       selection = this.cards.map(function (card) {
@@ -34,6 +35,7 @@ var renameDialog = {
       });
       $dialog.find('#ma-rd-selection').html(selection);
       $dialog.find('#ma-rd-preview').html(preview);
+
 
       callback.apply($dialog);
     });
@@ -79,6 +81,23 @@ var renameDialog = {
       });
     });
     renameDialog.hide();
+  },
+
+  refresh_pattern: function() {
+    patterns = patternDialog.patterns();
+
+    $select = $('#ma-rd-select-pattern');
+    $select.find('option').remove();
+
+    options = Object.keys(patterns).map(function(name) {
+      return '<option value="'
+        + name + '">'
+        + name
+        + ' <i>(' + patterns[name].regex + ')'
+        + '</option>';
+    });
+    console.log(options)
+    $select.html(options);
   },
 
   /*
@@ -144,6 +163,19 @@ var renameDialog = {
       regex   = $dialog.find('#ma-rd-regex');
 
       renameDialog.update_preview(regex, replace);
+    });
+
+    // pattern dialog functionality
+    $dialog.find('#ma-pd-add').click(function () {
+
+    });
+
+    $dialog.find('#ma-pd-modify').click(function () {
+
+    });
+
+    $dialog.find('#ma-pd-delete').click(function () {
+
     });
   }
 }

@@ -17,12 +17,27 @@ function rename_callbacks() {
     renameDialog.show(current_list);
   });
 
-  $(document).on('click', '.ma-pd-show', function() {
-    patternDialog.show();
-    return false;
+  $(document).on('click', '.ma-pd-add', function() {
+    patternDialog.modify("", function() {
+      console.log('new pattern saved');
+      renameDialog.show(current_list);
+    });
+  });
+
+  $(document).on('click', '.ma-pd-modify', function() {
+    name = $('#ma-rd-select-pattern').val();
+    patternDialog.modify(name, function() {
+      console.log('pattern modified')
+      renameDialog.show(current_list);
+    });
   });
 
   $(document).on('click', '.ma-rd-btn-close', function() {
     renameDialog.hide();
+  });
+
+  $(document).on('click', '.ma-pd-btn-close', function() {
+    console.log("close. show rename dialog");
+    renameDialog.show(current_list);
   });
 }
