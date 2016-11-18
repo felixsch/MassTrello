@@ -40,4 +40,5 @@ function rename_callbacks() {
     console.log("close. show rename dialog");
     renameDialog.show(current_list);
   });
+
 }

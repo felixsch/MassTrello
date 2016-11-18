@@ -52,7 +52,7 @@ var patternDialog = {
         reg  = $dialog.find('#ma-pd-regex').val();
         rep  = $dialog.find('#ma-pd-replace').val();
 
-        patternDialog._patterns[name] = {regex: reg, rep};
+        patternDialog._patterns[name] = {regex: reg, replace: rep};
         patternDialog._save();
 
         callback.apply(patternDialog._patterns[name]);
@@ -62,14 +62,19 @@ var patternDialog = {
 
   delete: function(name) {
     if (patternDialog._patterns.hasOwnProperty(name)) {
-      delete patternDialog[name];
+      delete patternDialog._patterns[name];
     }
     patternDialog._save();
   },
 
+  pattern: function(name) {
+    if (patternDialog._patterns.hasOwnProperty(name)) {
+      return patternDialog._patterns[name];
+    }
+    return undefined;
+  },
 
   patterns: function() {
-    console.log(patternDialog._patterns);
     return patternDialog._patterns;
   },
 

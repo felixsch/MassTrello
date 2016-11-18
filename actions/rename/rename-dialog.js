@@ -19,7 +19,7 @@ var renameDialog = {
   populate: function(listobj, callback) {
     $dialog = $(this._dialog_skel);
     this._set_dialog_events($dialog);
-    this.refresh_pattern();
+    this.refresh_pattern($dialog);
 
     trello_find_list_by_obj(listobj, function () {
       selection = this.cards.map(function (card) {
@@ -83,23 +83,6 @@ var renameDialog = {
     renameDialog.hide();
   },
 
-  refresh_pattern: function() {
-    patterns = patternDialog.patterns();
-
-    $select = $('#ma-rd-select-pattern');
-    $select.find('option').remove();
-
-    options = Object.keys(patterns).map(function(name) {
-      return '<option value="'
-        + name + '">'
-        + name
-        + ' <i>(' + patterns[name].regex + ')'
-        + '</option>';
-    });
-    console.log(options)
-    $select.html(options);
-  },
-
   /*
    * Show the dialog (by adding it to pop-over)
    */
@@ -116,6 +99,24 @@ var renameDialog = {
 
   hide: function() {
     $('.pop-over').empty().toggleClass('is-shown');
+  },
+
+  refresh_pattern: function($dialog) {
+    patterns = patternDialog.patterns();
+
+    $select = $dialog.find('#ma-rd-select-pattern');
+    $select.find('option').remove();
+
+    options = Object.keys(patterns).map(function(name) {
+      return '<option value="'
+        + name + '">'
+        + name
+        + ' <i>(' + patterns[name].regex + ')'
+        + '</option>';
+    });
+    console.log(options)
+    console.log($select);
+    $select.html(options);
   },
 
   _replace: function(index, text, regex, replace) {
@@ -165,17 +166,26 @@ var renameDialog = {
       renameDialog.update_preview(regex, replace);
     });
 
-    // pattern dialog functionality
-    $dialog.find('#ma-pd-add').click(function () {
 
+    $(document).on('click', '#ma-rd-select-pattern', function() {
+      name = $(this).val();
+
+      console.log(name + ' selected...');
+
+      pattern = patternDialog.pattern(name);
+
+      if (pattern) {
+        console.log('settings values...');
+        console.log(pattern)
+        $dialog.find('#ma-rd-replace').val(pattern.replace);
+        $dialog.find('#ma-rd-regex').val(pattern.regex);
+      }
     });
 
-    $dialog.find('#ma-pd-modify').click(function () {
-
-    });
-
-    $dialog.find('#ma-pd-delete').click(function () {
-
+    $(document).on('click', '.ma-pd-delete', function() {
+      name = $dialog.find('#ma-rd-select-pattern').val();
+      patternDialog.delete(name);
+      renameDialog.refresh_pattern($dialog);
     });
   }
 }
