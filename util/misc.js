@@ -1,5 +1,7 @@
+"use strict";
+
 function mk_option(text, value, id) {
-  option = "<option";
+  let option = "<option";
 
   if (value != undefined)
     option += ' value="' + value + '"';

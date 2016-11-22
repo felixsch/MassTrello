@@ -14,7 +14,7 @@ const renameDialog = {
     this._set_dialog_events($dialog);
     this.refresh_pattern($dialog);
 
-    trello_find_list_by_obj(listobj, function () {
+    trello_get_list_by_obj(listobj, function () {
       const selection = this.cards.map(function (card) {
         return mk_option(card.name, card.id);
       });
@@ -31,8 +31,8 @@ const renameDialog = {
 
   update_preview: function(regex, replace) {
     let re;
-    $('#rd-selection option').each(function(i) {
-      const $pcard   = $($('#card-' + $(this).val()))
+    $('#rd-selection option').each(function() {
+      const $pcard   = $($('#card-' + $(this).val()));
       $pcard.removeClass("ma-bold");
       $pcard.text($(this).text());
     });
@@ -49,7 +49,7 @@ const renameDialog = {
     $(regex).css("background-color", "#96d48a");
 
     $('#rd-selection option:checked').each(function(i) {
-      const pcard   = $('#card-' + $(this).val())
+      const pcard   = $('#card-' + $(this).val());
       const preview = renameDialog._replace(i, $(this).text(), re, $(replace).val());
 
       pcard.addClass("ma-bold");
@@ -97,8 +97,8 @@ const renameDialog = {
   },
 
   _replace: function(index, text, regex, replace) {
-      const repl = replace.replace(/\$i/, index + 1);
-      return text.replace(RegExp(regex), repl);
+    const repl = replace.replace(/\$i/, index + 1);
+    return text.replace(RegExp(regex), repl);
   },
 
   _set_dialog_events: function($dialog) {
@@ -150,4 +150,4 @@ const renameDialog = {
       renameDialog.refresh_pattern($dialog);
     });
   }
-}
+};

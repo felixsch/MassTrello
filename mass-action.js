@@ -1,7 +1,9 @@
+"use strict";
+
 /*
  * Mass action extension for Chromium
  */
-var current_list = undefined
+let current_list = undefined;
 
 
 /*
@@ -9,13 +11,13 @@ var current_list = undefined
  */
 function initialize_observers() {
   var menu_entries = [
-    { match: '.js-add-card',      callback: rename_observer },
-    { match: '.js-archive-cards', callback: move_to_observer }
+    { match: ".js-add-card",      callback: rename_observer },
+    { match: ".js-archive-cards", callback: move_to_observer }
   ];
 
-  MutationObserver = window.MutationObserver || window.WebKitMutationObserver
+  const Observer = window.MutationObserver || window.WebKitMutationObserver;
 
-  var listObserver = new MutationObserver(function(records) {
+  let listObserver = new Observer(function(records) {
     records.forEach(function(rec) {
       $(rec.addedNodes).each(function() {
         if ($(rec.target).hasClass('pop-over')) {
@@ -47,20 +49,21 @@ function authorize_trello() {
       account: false
     },
     expiration: 'never',
-    success: function () { console.log('authorized with Trello API') },
-    error: function() { console.log('authentification with Trello API failed') }
+    error: function () {
+      alert('Could not authentificate with Trello. MassTrello will not work correctly');
+    }
   });
 }
 
 function basic_callbacks() {
   $(document).on('click', '.ma-list-select-all', function() {
-    $select = $($(this).parent().prev().children('option'));
+    const $select = $($(this).parent().prev().children('option'));
     $select.prop('selected', true);
     $select.trigger('change');
   });
 
   $(document).on('click', '.ma-list-unselect-all', function() {
-    $select = $($(this).parent().prev().children('option'));
+    const $select = $($(this).parent().prev().children('option'));
     $select.prop('selected', false);
     $select.trigger('change');
   });

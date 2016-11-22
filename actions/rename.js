@@ -1,3 +1,4 @@
+"use strict";
 
 function rename_observer() {
   $(this.parentNode).after('<li><a class="ma-action-rename">Rename Cards...</a></li>');
@@ -18,7 +19,7 @@ function rename_callbacks() {
   });
 
   $(document).on('click', '.pd-modify', function() {
-    name = $('#ma-rd-select-pattern').val();
+    const name = $('#ma-rd-select-pattern').val();
     patternDialog.modify(name, function() {
       renameDialog.show(current_list);
     });

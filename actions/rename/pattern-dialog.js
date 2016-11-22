@@ -1,4 +1,6 @@
-var patternDialog = {
+"use strict";
+
+const patternDialog = {
   _dialog_skel: undefined,
   _patterns: {},
 
@@ -16,7 +18,7 @@ var patternDialog = {
   },
 
   populate: function(name, regex, replace, callback) {
-    $dialog = $(this._dialog_skel);
+    const $dialog = $(this._dialog_skel);
 
     $dialog.find('#ma-pd-name').val(name);
     $dialog.find('#ma-pd-regex').val(regex);
@@ -27,12 +29,12 @@ var patternDialog = {
 
 
   modify: function(name, callback) {
-    regex   = "";
-    replace = "";
-    modify  = false;
+    let regex   = "";
+    let replace = "";
+    var modify  = false;
 
     if (name != "") {
-      pattern = this.pattern(name);
+      const pattern = this.pattern(name);
       regex   = pattern.regex;
       replace = pattern.replace;
       modify  = true;
@@ -47,9 +49,9 @@ var patternDialog = {
       });
 
       $(this).find('.ma-pd-save').click(function() {
-        name = $dialog.find('#ma-pd-name').val();
-        reg  = $dialog.find('#ma-pd-regex').val();
-        rep  = $dialog.find('#ma-pd-replace').val();
+        const name = $('#ma-pd-name').val();
+        const reg  = $('#ma-pd-regex').val();
+        const rep  = $('#ma-pd-replace').val();
 
         patternDialog._patterns[name] = {regex: reg, replace: rep};
         patternDialog._save();
@@ -80,4 +82,4 @@ var patternDialog = {
   _save: function() {
     chrome.storage.local.set({'patterns': this._patterns});
   }
-}
+};

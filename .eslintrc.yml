@@ -1,0 +1,24 @@
+env:
+  browser: true
+  es6: true
+  jquery: true
+extends: 'eslint:recommended'
+rules:
+  indent:
+    - error
+    - 2
+  semi:
+    - error
+    - always
+globals:
+  current_list: true
+  rename_observer: false
+  move_to_observer: false
+  rename_callbacks: false
+  move_to_callbacks: false
+  Trello: false
+  moveDialog: false
+  renameDialog: false
+  patternDialog: false
+  chrome: false
+

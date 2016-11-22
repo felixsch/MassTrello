@@ -1,4 +1,6 @@
-var moveDialog = {
+"use strict";
+
+const moveDialog = {
   _dialog_skel: undefined,
 
   initialize: function() {
@@ -8,18 +10,17 @@ var moveDialog = {
   },
 
   populate: function(list, callback) {
-    $dialog = $(this._dialog_skel);
+    const $dialog = $(this._dialog_skel);
     this._set_dialog_events($dialog);
 
-    trello_find_list_by_obj(list, function () {
-      cards = this.cards.map(function (card) {
+    trello_get_list_by_obj(list, function () {
+      const cards = this.cards.map(function (card) {
         return mk_option(card.name, card.id);
       });
-      console.log(cards);
       $dialog.find('#mt-selection').html(cards);
 
       trello_get_boards(function () {
-        boards = ['<option value="">Select Board...</option>'];
+        let boards = ['<option value="">Select Board...</option>'];
         boards += this.map(function (board) {
           return mk_option(board.name, board.id);
         });
@@ -46,18 +47,18 @@ var moveDialog = {
 
   apply_changes: function(board, list, callback) {
     $('#mt-selection option:checked').each(function() {
-      card = $(this).val();
+      const card = $(this).val();
       Trello.put('cards/' + card + '/idBoard', {value: board, idList: list});
     }).promise().done( function() {
-        callback();
+      callback();
     });
   },
 
   _set_dialog_events: function($dialog) {
     $dialog.find('#mt-dest-board').change(function() {
-      board = $(this).val();
+      const board = $(this).val();
       trello_get_lists_by_board(board, function() {
-        lists = ['<option value="">Select List...</option>'];
+        let lists = ['<option value="">Select List...</option>'];
         lists += this.map(function(list) {
           return mk_option(list.name, list.id);
         });
@@ -70,8 +71,8 @@ var moveDialog = {
     });
 
     $dialog.find('.mt-apply').click(function() {
-      board = $dialog.find('#mt-dest-board').val();
-      list  = $dialog.find('#mt-dest-list').val();
+      const board = $dialog.find('#mt-dest-board').val();
+      const list  = $dialog.find('#mt-dest-list').val();
       if (board == "" | list == "")
         return;
       $(this).text("Moving cards...");

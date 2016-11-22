@@ -1,3 +1,5 @@
+"use strict";
+
 function move_to_observer() {
   $(this.parentNode).after('<li><a class="ma-action-move">Move Cards to another Board...</a></li>');
 }
