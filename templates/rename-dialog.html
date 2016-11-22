@@ -1,57 +1,58 @@
 <div class="pop-over-header">
   <span class="pop-over-header-title">Rename Cards</span>
-  <a href="#" class="pop-over-header-close-btn icon-sm icon-close ma-rd-btn-close">
+  <a href="#" class="pop-over-header-close-btn icon-sm icon-close rd-btn-close">
   </a>
 </div>
 
 <div class="pop-over-content u-fancy-scrollbar">
-  <div class="ma-rd-lists">
-    <div class="ma-rd-list">
+  <div class="rd-lists">
+    <div class="ma-list rd-list">
       <label>Selection</label>
-      <select id="ma-rd-selection" class="ma-rd-list u-fancy-scrollbar" size="20" multiple></select>
-      <div class="ma-rd-foot">
-        <a href="#" class="ma-rd-select-all">Select all</a>
-        <a href="#" class="ma-rd-unselect-all">Unselect all</a>
+      <select id="rd-selection" class="u-fancy-scrollbar" size="20" multiple></select>
+      <div class="ma-list-foot">
+        <a href="#" class="ma-list-select-all">Select all</a>
+        <a href="#" class="ma-list-unselect-all">Unselect all</a>
       </div>
     </div>
-    <div class="ma-rd-list">
+    <div class="ma-list rd-list">
       <label>Preview</label>
-      <select id="ma-rd-preview" class="ma-rd-list u-fancy-scrollbar" size="20" multiple disabled></select>
-      <div class="ma-rd-foot"></div>
+      <select id="rd-preview" class="u-fancy-scrollbar" size="20" multiple disabled></select>
+      <div class="ma-list-foot"></div>
     </div>
   </div>
 
-  <div class="ma-rd-pattern">
+  <div class="rd-pattern">
     <div class="form-grid">
       <div class="form-grid-child">
-        <select class="ma-input" id="ma-rd-select-pattern">
+        <label>Pattern</label>
+        <select class="ma-input ma-select" id="rd-select-pattern">
         </select>
       </div>
     </div>
     <div class="form-grid">
       <div class="form-grid-child">
-        <input class="secondary confirm mod-compact ma-pd-add" type="submit" value="Add">
-        <input class="secondary confirm mod-compact ma-pd-modify" type="submit" value="Modify">
-        <input class="secondary confirm mod-compact ma-pd-delete" type="submit" value="Delete">
+        <input class="secondary confirm mod-compact pd-add" type="submit" value="Add">
+        <input class="secondary confirm mod-compact pd-modify" type="submit" value="Modify">
+        <input class="secondary confirm mod-compact pd-delete" type="submit" value="Delete">
       </div>
     </div>
 
     <div class="form-grid">
       <div class="form-grid-child">
         <label>RegExp</label>
-        <input id="ma-rd-regex" class="ma-input">
+        <input id="rd-regex" class="ma-input">
       </div>
 
       <div class="form-grid">
         <div class="form-grid-child">
           <label>Replace</label>
-          <input id="ma-rd-replace" class="ma-input">
+          <input id="rd-replace" class="ma-input">
         </div>
       </div>
     </div>
   </div>
-  <div class="ma-rd-description-wrapper">
-    <div class="ma-rd-description">
+  <div class="rd-description-wrapper">
+    <div class="rd-description">
       <p><strong>How to use the Rename Dialog</strong></p>
       <p>1) Select all cards you want to rename by clicking the card names (multiple selection works with shift/ctrl) or 'select all'</p>
       <p>2a) Select a pattern from the already defined pattern list (or modify/delete/add new patterns)</p>
@@ -61,7 +62,7 @@
       <p>3) Apply changes to all selected cards by pressing the rename button</p>
     </div>
   </div>
-  <div class="ma-rd-controls">
-    <input class="primary confirm mod-compact ma-rd-apply" type="submit" value="Rename Cards">
+  <div class="rd-controls">
+    <input class="primary confirm mod-compact rd-apply" type="submit" value="Rename Cards">
   </div>
 </div>

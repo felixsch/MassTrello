@@ -23,18 +23,14 @@ var renameDialog = {
 
     trello_find_list_by_obj(listobj, function () {
       selection = this.cards.map(function (card) {
-        return '<option class="ma-rd-opt" value="' + card.id + '">'
-              + card.name
-              + '</option>';
+        return mk_option(card.name, card.id);
       });
 
       preview = this.cards.map(function(card) {
-        return '<option class="ma-rd-opt" id="card-' + card.id + '">'
-              + card.name
-              + '</option>';
+        return mk_option(card.name, card.id, "card-" + card.id);
       });
-      $dialog.find('#ma-rd-selection').html(selection);
-      $dialog.find('#ma-rd-preview').html(preview);
+      $dialog.find('#rd-selection').html(selection);
+      $dialog.find('#rd-preview').html(preview);
 
 
       callback.apply($dialog);
@@ -45,9 +41,9 @@ var renameDialog = {
    * Run the preview with given regex, match
    */
   update_preview: function(regex, replace) {
-    $('#ma-rd-selection option').each(function(i) {
+    $('#rd-selection option').each(function(i) {
       $pcard   = $($('#card-' + $(this).val()))
-      $pcard.removeClass("ma-rd-bold");
+      $pcard.removeClass("ma-bold");
       $pcard.text($(this).text());
     });
 
@@ -62,25 +58,28 @@ var renameDialog = {
     $(replace).css("background-color", "#96d48a");
     $(regex).css("background-color", "#96d48a");
 
-    $('#ma-rd-selection option:checked').each(function(i) {
+    $('#rd-selection option:checked').each(function(i) {
       pcard   = $('#card-' + $(this).val())
       preview = renameDialog._replace(i, $(this).text(), re, $(replace).val());
 
-      pcard.addClass("ma-rd-bold");
+      pcard.addClass("ma-bold");
       pcard.text(preview);
     });
   },
 
   apply_changes: function(regex, replace) {
-    $('#ma-rd-selection option:checked').each(function(i) {
+    $('#rd-selection option:checked').each(function(i) {
       re       = RegExp(regex);
       new_name = renameDialog._replace(i, $(this).text(), re, replace);
 
       Trello.put("cards/" + $(this).val() + "/name", {value: new_name}, function() {
-        console.log("Updated card!");
+        console.log("YEAY!");
+      }, function(err) {
+        console.log(err);
       });
+    }).promise().done(function () {
+      renameDialog.hide();
     });
-    renameDialog.hide();
   },
 
   /*
@@ -104,15 +103,12 @@ var renameDialog = {
   refresh_pattern: function($dialog) {
     patterns = patternDialog.patterns();
 
-    $select = $dialog.find('#ma-rd-select-pattern');
+    $select = $dialog.find('#rd-select-pattern');
     $select.find('option').remove();
 
     options = Object.keys(patterns).map(function(name) {
-      return '<option value="'
-        + name + '">'
-        + name
-        + ' <i>(' + patterns[name].regex + ')'
-        + '</option>';
+      text = name + ' <i>(' + patterns[name].regex + ')';
+      return mk_option(text, name);
     });
     console.log(options)
     console.log($select);
@@ -126,64 +122,47 @@ var renameDialog = {
 
   _set_dialog_events: function($dialog) {
     // make scrollbars synchron
-    $dialog.find('#ma-rd-selection').scroll(function(){
-      $('#ma-rd-preview').scrollTop($(this).scrollTop());
+    $dialog.find('#rd-selection').scroll(function(){
+      $('#rd-preview').scrollTop($(this).scrollTop());
     });
-    $dialog.find('#ma-rd-preview').scroll(function(){
-      $('#ma-rd-selection').scrollTop($(this).scrollTop());
+    $dialog.find('#rd-preview').scroll(function(){
+      $('#rd-selection').scrollTop($(this).scrollTop());
     });
 
     // apply changes
-    $dialog.find(".ma-rd-apply").click(function () {
-      replace = $dialog.find('#ma-rd-replace').val();
-      regex   = $dialog.find('#ma-rd-regex').val();
+    $dialog.find(".rd-apply").click(function () {
+      replace = $dialog.find('#rd-replace').val();
+      regex   = $dialog.find('#rd-regex').val();
       renameDialog.apply_changes(regex, replace);
     });
 
-    // select all link
-    $dialog.find('.ma-rd-select-all').click(function() {
-      $dialog.find('#ma-rd-selection option').prop('selected', true);
-    });
-
-    // unselect all link
-    $dialog.find('.ma-rd-unselect-all').click(function() {
-      $dialog.find('#ma-rd-selection option').prop('selected', false);
-      $dialog.find('#ma-rd-replace').trigger('keyup');
-    });
-
     // update preview
-    $dialog.find('#ma-rd-selection').change(function() {
-      $dialog.find('#ma-rd-replace').trigger('keyup');
+    $dialog.find('#rd-selection').change(function() {
+      $dialog.find('#rd-replace').trigger('keyup');
     });
-    $dialog.find('#ma-rd-regex').keyup(function() {
-      $dialog.find('#ma-rd-replace').trigger('keyup');
+    $dialog.find('#rd-regex').keyup(function() {
+      $dialog.find('#rd-replace').trigger('keyup');
     });
 
-    $dialog.find('#ma-rd-replace').keyup(function() {
-      replace = $dialog.find('#ma-rd-replace');
-      regex   = $dialog.find('#ma-rd-regex');
-
+    $dialog.find('#rd-replace').keyup(function() {
+      replace = $dialog.find('#rd-replace');
+      regex   = $dialog.find('#rd-regex');
       renameDialog.update_preview(regex, replace);
     });
 
-
-    $(document).on('click', '#ma-rd-select-pattern', function() {
+    $(document).on('click', '#rd-select-pattern', function() {
       name = $(this).val();
-
-      console.log(name + ' selected...');
-
       pattern = patternDialog.pattern(name);
 
       if (pattern) {
-        console.log('settings values...');
-        console.log(pattern)
-        $dialog.find('#ma-rd-replace').val(pattern.replace);
-        $dialog.find('#ma-rd-regex').val(pattern.regex);
+        $dialog.find('#rd-replace').val(pattern.replace);
+        $dialog.find('#rd-regex').val(pattern.regex);
+        $dialog.find('#rd-replace').trigger('change');
       }
     });
 
-    $(document).on('click', '.ma-pd-delete', function() {
-      name = $dialog.find('#ma-rd-select-pattern').val();
+    $(document).on('click', '.pd-delete', function() {
+      name = $dialog.find('#rd-select-pattern').val();
       patternDialog.delete(name);
       renameDialog.refresh_pattern($dialog);
     });

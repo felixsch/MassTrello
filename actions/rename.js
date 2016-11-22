@@ -1,43 +1,37 @@
 
 function rename_observer() {
-  $(this.parentNode).after('<li><a class="ma-rd-show">Rename Cards...</a></li>');
+  $(this.parentNode).after('<li><a class="ma-action-rename">Rename Cards...</a></li>');
 }
 
 function rename_callbacks() {
-  var current_list = undefined;
   renameDialog.initialize();
   patternDialog.initialize();
 
-  $('.js-open-list-menu').click(function() {
-    current_list = $(this).closest(".list");
-    return true;
-  });
-
-  $(document).on('click', '.ma-rd-show', function() {
+  $(document).on('click', '.ma-action-rename', function() {
+    console.log(this);
+    list = get_current_list(this);
+    console.log(list);
     renameDialog.show(current_list);
   });
 
-  $(document).on('click', '.ma-pd-add', function() {
+  $(document).on('click', '.pd-add', function() {
     patternDialog.modify("", function() {
-      console.log('new pattern saved');
       renameDialog.show(current_list);
     });
   });
 
-  $(document).on('click', '.ma-pd-modify', function() {
+  $(document).on('click', '.pd-modify', function() {
     name = $('#ma-rd-select-pattern').val();
     patternDialog.modify(name, function() {
-      console.log('pattern modified')
       renameDialog.show(current_list);
     });
   });
 
-  $(document).on('click', '.ma-rd-btn-close', function() {
+  $(document).on('click', '.rd-btn-close', function() {
     renameDialog.hide();
   });
 
-  $(document).on('click', '.ma-pd-btn-close', function() {
-    console.log("close. show rename dialog");
+  $(document).on('click', '.pd-btn-close', function() {
     renameDialog.show(current_list);
   });
 

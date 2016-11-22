@@ -7,12 +7,12 @@ var patternDialog = {
       patternDialog._dialog_skel = skeleton;
     });
 
-    // // load patterns from store
-    // chrome.storage.local.get('patterns', function(result) {
-    //   if (! $.isEmptyObject(result)) {
-    //     patternDialog._patterns = result.patterns;
-    //   }
-    // });
+    // load patterns from store
+    chrome.storage.local.get('patterns', function(result) {
+      if (! $.isEmptyObject(result)) {
+        patternDialog._patterns = result.patterns;
+      }
+    });
   },
 
   populate: function(name, regex, replace, callback) {
