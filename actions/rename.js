@@ -8,9 +8,6 @@ function rename_callbacks() {
   patternDialog.initialize();
 
   $(document).on('click', '.ma-action-rename', function() {
-    console.log(this);
-    list = get_current_list(this);
-    console.log(list);
     renameDialog.show(current_list);
   });
 

@@ -137,7 +137,7 @@ var renameDialog = {
       if (pattern) {
         $dialog.find('#rd-replace').val(pattern.replace);
         $dialog.find('#rd-regex').val(pattern.regex);
-        $dialog.find('#rd-replace').trigger('change');
+        $dialog.find('#rd-replace').trigger('keyup');
       }
     });
 
