@@ -17,7 +17,6 @@ var patternDialog = {
 
   populate: function(name, regex, replace, callback) {
     $dialog = $(this._dialog_skel);
-    this._set_dialog_events($dialog);
 
     $dialog.find('#ma-pd-name').val(name);
     $dialog.find('#ma-pd-regex').val(regex);
@@ -46,8 +45,8 @@ var patternDialog = {
         top: "40%",
         width: "20%"
       });
+
       $(this).find('.ma-pd-save').click(function() {
-        console.log('save everything');
         name = $dialog.find('#ma-pd-name').val();
         reg  = $dialog.find('#ma-pd-regex').val();
         rep  = $dialog.find('#ma-pd-replace').val();
@@ -80,8 +79,5 @@ var patternDialog = {
 
   _save: function() {
     chrome.storage.local.set({'patterns': this._patterns});
-  },
-
-  _set_dialog_events: function($dialog) {
   }
 }

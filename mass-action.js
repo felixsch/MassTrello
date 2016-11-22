@@ -3,6 +3,7 @@
  */
 var current_list = undefined
 
+
 /*
  * Initialize all observer used by this extension.
  */
@@ -65,7 +66,6 @@ function basic_callbacks() {
   });
 
   $('.js-open-list-menu').click(function() {
-    console.log('set current_list');
     current_list = $(this).closest(".list");
   });
 
@@ -87,8 +87,6 @@ function basic_callbacks() {
  * Intialize the system after the trello page has loaded completly
  */
 $(document).ready(function() {
-  console.log("ready");
-
   initialize_observers();
 
   authorize_trello();

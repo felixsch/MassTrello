@@ -1,21 +1,12 @@
-/*
- * renameDialog implementes the complete behavior of the renaming functionality
- */
 var renameDialog = {
   _dialog_skel: undefined,
 
-  /*
-   * Load rename dialog only once
-   */
   initialize: function() {
     $.get(chrome.extension.getURL("templates/rename-dialog.html"), function(skeleton) {
       renameDialog._dialog_skel = skeleton;
     });
   },
 
-  /*
-   * fill card selection and preview area
-   */
   populate: function(listobj, callback) {
     $dialog = $(this._dialog_skel);
     this._set_dialog_events($dialog);
@@ -32,14 +23,10 @@ var renameDialog = {
       $dialog.find('#rd-selection').html(selection);
       $dialog.find('#rd-preview').html(preview);
 
-
       callback.apply($dialog);
     });
   },
 
-  /*
-   * Run the preview with given regex, match
-   */
   update_preview: function(regex, replace) {
     $('#rd-selection option').each(function(i) {
       $pcard   = $($('#card-' + $(this).val()))
@@ -67,24 +54,17 @@ var renameDialog = {
     });
   },
 
-  apply_changes: function(regex, replace) {
+  apply_changes: function(regex, replace, callback) {
     $('#rd-selection option:checked').each(function(i) {
       re       = RegExp(regex);
       new_name = renameDialog._replace(i, $(this).text(), re, replace);
 
-      Trello.put("cards/" + $(this).val() + "/name", {value: new_name}, function() {
-        console.log("YEAY!");
-      }, function(err) {
-        console.log(err);
-      });
+      Trello.put("cards/" + $(this).val() + "/name", {value: new_name});
     }).promise().done(function () {
-      renameDialog.hide();
+      callback();
     });
   },
 
-  /*
-   * Show the dialog (by adding it to pop-over)
-   */
   show: function(list) {
     this.populate(list, function() {
       $('.pop-over').html(this);
@@ -110,8 +90,6 @@ var renameDialog = {
       text = name + ' <i>(' + patterns[name].regex + ')';
       return mk_option(text, name);
     });
-    console.log(options)
-    console.log($select);
     $select.html(options);
   },
 
@@ -133,7 +111,9 @@ var renameDialog = {
     $dialog.find(".rd-apply").click(function () {
       replace = $dialog.find('#rd-replace').val();
       regex   = $dialog.find('#rd-regex').val();
-      renameDialog.apply_changes(regex, replace);
+      renameDialog.apply_changes(regex, replace, function() {
+        renameDialog.hide();
+      });
     });
 
     // update preview

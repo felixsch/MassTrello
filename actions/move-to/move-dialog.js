@@ -1,18 +1,12 @@
 var moveDialog = {
   _dialog_skel: undefined,
 
-  /*
-   * Load rename dialog only once
-   */
   initialize: function() {
     $.get(chrome.extension.getURL("templates/move-to-dialog.html"), function(skeleton) {
       moveDialog._dialog_skel = skeleton;
     });
   },
 
-  /*
-   * fill card selection and preview area
-   */
   populate: function(list, callback) {
     $dialog = $(this._dialog_skel);
     this._set_dialog_events($dialog);
@@ -60,20 +54,13 @@ var moveDialog = {
   },
 
   _set_dialog_events: function($dialog) {
-    console.log("FOO");
-
     $dialog.find('#mt-dest-board').change(function() {
       board = $(this).val();
-      console.log("DEBUG");
       trello_get_lists_by_board(board, function() {
-        console.log(this);
-        console.log("DEBUG2");
         lists = ['<option value="">Select List...</option>'];
         lists += this.map(function(list) {
           return mk_option(list.name, list.id);
         });
-        console.log($dialog.find('#mt-dest-list'));
-        console.log(lists);
         $dialog.find('#mt-dest-list').html(lists);
       });
     });
