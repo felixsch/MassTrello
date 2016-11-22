@@ -7,7 +7,7 @@ A chromium extension to make handling of cards in trello more easy.
   git clone https://github.com/felixsch/MassTrello
 ```
 
-Open Chromium and goto Extensions `[chrome://extensions](chrome://extensions)` and enable developer mode
+Open Chromium and goto Extensions `chrome://extensions` and enable developer mode
 Click on `load unpacked extension...` and select the cloned git repository. Voila! Installed!
 
 
