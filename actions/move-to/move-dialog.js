@@ -14,16 +14,13 @@ const moveDialog = {
     this._set_dialog_events($dialog);
 
     trello_get_list_by_obj(list, function () {
-      const cards = this.cards.map(function (card) {
-        return mk_option(card.name, card.id);
-      });
+      const cards = this.cards.map(card => mk_option(card.name, card.id));
       $dialog.find('#mt-selection').html(cards);
 
       trello_get_boards(function () {
         let boards = ['<option value="">Select Board...</option>'];
-        boards += this.map(function (board) {
-          return mk_option(board.name, board.id);
-        });
+        boards += this.map(board => mk_option(board.name, board.id));
+
         $dialog.find('#mt-dest-board').html(boards);
         callback.apply($dialog);
       });
@@ -59,9 +56,8 @@ const moveDialog = {
       const board = $(this).val();
       trello_get_lists_by_board(board, function() {
         let lists = ['<option value="">Select List...</option>'];
-        lists += this.map(function(list) {
-          return mk_option(list.name, list.id);
-        });
+        lists += this.map(list => mk_option(list.name, list.id));
+
         $dialog.find('#mt-dest-list').html(lists);
       });
     });

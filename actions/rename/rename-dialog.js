@@ -15,13 +15,10 @@ const renameDialog = {
     this.refresh_pattern($dialog);
 
     trello_get_list_by_obj(listobj, function () {
-      const selection = this.cards.map(function (card) {
-        return mk_option(card.name, card.id);
-      });
+      const selection = this.cards.map(card => mk_option(card.name, card.id));
+      const preview = this.cards.map(card =>
+        mk_option(card.name, card.id, "card-" + card.id));
 
-      const preview = this.cards.map(function(card) {
-        return mk_option(card.name, card.id, "card-" + card.id);
-      });
       $dialog.find('#rd-selection').html(selection);
       $dialog.find('#rd-preview').html(preview);
 
@@ -89,7 +86,7 @@ const renameDialog = {
     const $select = $dialog.find('#rd-select-pattern');
     $select.find('option').remove();
 
-    const options = Object.keys(patterns).map(function(name) {
+    const options = Object.keys(patterns).map(name => {
       const text = name + ' <i>(' + patterns[name].regex + ')';
       return mk_option(text, name);
     });
