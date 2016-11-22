@@ -1,4 +1,6 @@
-var renameDialog = {
+"use strict";
+
+const renameDialog = {
   _dialog_skel: undefined,
 
   initialize: function() {
@@ -8,16 +10,16 @@ var renameDialog = {
   },
 
   populate: function(listobj, callback) {
-    $dialog = $(this._dialog_skel);
+    const $dialog = $(this._dialog_skel);
     this._set_dialog_events($dialog);
     this.refresh_pattern($dialog);
 
     trello_find_list_by_obj(listobj, function () {
-      selection = this.cards.map(function (card) {
+      const selection = this.cards.map(function (card) {
         return mk_option(card.name, card.id);
       });
 
-      preview = this.cards.map(function(card) {
+      const preview = this.cards.map(function(card) {
         return mk_option(card.name, card.id, "card-" + card.id);
       });
       $dialog.find('#rd-selection').html(selection);
@@ -28,14 +30,15 @@ var renameDialog = {
   },
 
   update_preview: function(regex, replace) {
+    let re;
     $('#rd-selection option').each(function(i) {
-      $pcard   = $($('#card-' + $(this).val()))
+      const $pcard   = $($('#card-' + $(this).val()))
       $pcard.removeClass("ma-bold");
       $pcard.text($(this).text());
     });
 
     try {
-      var re = new RegExp($(regex).val());
+      re = new RegExp($(regex).val());
     } catch(e) {
       $(regex).css("background-color", "#de9a8f");
       $(replace).css("background-color", "#de9a8f");
@@ -46,8 +49,8 @@ var renameDialog = {
     $(regex).css("background-color", "#96d48a");
 
     $('#rd-selection option:checked').each(function(i) {
-      pcard   = $('#card-' + $(this).val())
-      preview = renameDialog._replace(i, $(this).text(), re, $(replace).val());
+      const pcard   = $('#card-' + $(this).val())
+      const preview = renameDialog._replace(i, $(this).text(), re, $(replace).val());
 
       pcard.addClass("ma-bold");
       pcard.text(preview);
@@ -56,8 +59,8 @@ var renameDialog = {
 
   apply_changes: function(regex, replace, callback) {
     $('#rd-selection option:checked').each(function(i) {
-      re       = RegExp(regex);
-      new_name = renameDialog._replace(i, $(this).text(), re, replace);
+      const re       = RegExp(regex);
+      const new_name = renameDialog._replace(i, $(this).text(), re, replace);
 
       Trello.put("cards/" + $(this).val() + "/name", {value: new_name});
     }).promise().done(function () {
@@ -81,20 +84,20 @@ var renameDialog = {
   },
 
   refresh_pattern: function($dialog) {
-    patterns = patternDialog.patterns();
+    const patterns = patternDialog.patterns();
 
-    $select = $dialog.find('#rd-select-pattern');
+    const $select = $dialog.find('#rd-select-pattern');
     $select.find('option').remove();
 
-    options = Object.keys(patterns).map(function(name) {
-      text = name + ' <i>(' + patterns[name].regex + ')';
+    const options = Object.keys(patterns).map(function(name) {
+      const text = name + ' <i>(' + patterns[name].regex + ')';
       return mk_option(text, name);
     });
     $select.html(options);
   },
 
   _replace: function(index, text, regex, replace) {
-      repl = replace.replace(/\$i/, index + 1);
+      const repl = replace.replace(/\$i/, index + 1);
       return text.replace(RegExp(regex), repl);
   },
 
@@ -109,8 +112,8 @@ var renameDialog = {
 
     // apply changes
     $dialog.find(".rd-apply").click(function () {
-      replace = $dialog.find('#rd-replace').val();
-      regex   = $dialog.find('#rd-regex').val();
+      const replace = $dialog.find('#rd-replace').val();
+      const regex   = $dialog.find('#rd-regex').val();
       renameDialog.apply_changes(regex, replace, function() {
         renameDialog.hide();
       });
@@ -125,14 +128,14 @@ var renameDialog = {
     });
 
     $dialog.find('#rd-replace').keyup(function() {
-      replace = $dialog.find('#rd-replace');
-      regex   = $dialog.find('#rd-regex');
+      const replace = $dialog.find('#rd-replace');
+      const regex   = $dialog.find('#rd-regex');
       renameDialog.update_preview(regex, replace);
     });
 
     $(document).on('click', '#rd-select-pattern', function() {
-      name = $(this).val();
-      pattern = patternDialog.pattern(name);
+      const name = $(this).val();
+      const pattern = patternDialog.pattern(name);
 
       if (pattern) {
         $dialog.find('#rd-replace').val(pattern.replace);
@@ -142,7 +145,7 @@ var renameDialog = {
     });
 
     $(document).on('click', '.pd-delete', function() {
-      name = $dialog.find('#rd-select-pattern').val();
+      const name = $dialog.find('#rd-select-pattern').val();
       patternDialog.delete(name);
       renameDialog.refresh_pattern($dialog);
     });
