@@ -8,12 +8,13 @@
       "js": [
         "jquery-3.1.1.min.js",
         "client.js",
-
-        "actions/rename.js",
+        "util/trello.js",
+        "util/misc.js",
         "actions/rename/pattern-dialog.js",
         "actions/rename/rename-dialog.js",
+        "actions/move-to/move-dialog.js",
+        "actions/rename.js",
         "actions/move-to.js",
-        "util/trello.js",
         "mass-action.js"
       ],
 

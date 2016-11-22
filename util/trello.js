@@ -14,6 +14,20 @@ function trello_find_list_by_obj(obj, callback) {
 }
 
 
+function trello_get_lists_by_board(board, callback) {
+  Trello.get('boards/' + board + '/lists', function(lists) {
+    callback.apply(lists);
+  });
+}
+
+
+function trello_get_boards(callback) {
+  Trello.get('members/me/boards', function(boards) {
+    callback.apply(boards);
+  });
+}
+
+
 function trello_extract_board_from_url() {
   current = window.location.pathname.split("/");
 

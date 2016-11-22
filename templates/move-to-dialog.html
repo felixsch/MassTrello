@@ -1,0 +1,40 @@
+<div class="pop-over-header">
+  <span class="pop-over-header-title">Move Cards to another Board</span>
+  <a href="#" class="pop-over-header-close-btn icon-sm icon-close mt-btn-close">
+  </a>
+</div>
+
+<div class="pop-over-content u-fancy-scrollbar">
+  <div class="ma-list">
+    <label>Cards to move</label>
+    <select id="mt-selection" class="ma-list u-fancy-scrollbar" size="20" multiple></select>
+    <div class="ma-list-foot">
+      <a href="#" class="ma-list-select-all">Select all</a>
+      <a href="#" class="ma-list-unselect-all">Unselect all</a>
+    </div>
+  </div>
+
+  <div class="mt-dest">
+    <div class="form-grid">
+      <div class="form-grid-child">
+        <label>Board</label>
+        <select class="ma-input ma-select" id="mt-dest-board">
+          <option value="" >Select Board...</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-grid-child">
+        <label>List</label>
+        <select class="ma-input ma-select" id="mt-dest-list">
+          <option value="" >Select List...</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-controls">
+    <input class="primary confirm mod-compact mt-apply" type="submit" value="Move Cards">
+  </div>
+</div>
