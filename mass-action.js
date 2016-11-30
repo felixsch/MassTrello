@@ -38,6 +38,16 @@ function initialize_observers() {
  * Authorize trello client with trello API.
  */
 function authorize_trello() {
+  chrome.storage.local.get('login', function(result) {
+    const name = $('.js-member-name').text();
+
+    if ($.isEmptyObject(result) || result.login != name)
+      Trello.deauthorize();
+  });
+
+  if (Trello.authorized())
+    return;
+
   Trello.authorize({
     type: 'popup',
     name: 'Trello Mass action extension',
@@ -49,6 +59,10 @@ function authorize_trello() {
       account: false
     },
     expiration: 'never',
+    success: function () {
+      const name = $('.js-member-name').text();
+      chrome.storage.local.set({'login': name});
+    },
     error: function () {
       alert('Could not authentificate with Trello. MassTrello will not work correctly');
     }

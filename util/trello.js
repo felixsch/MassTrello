@@ -29,6 +29,21 @@ function trello_get_boards(callback) {
   });
 }
 
+function trello_get_labels_by_board(board, callback) {
+  Trello.get('boards/' + board + '/labels', function(raw_labels) {
+    let labels = {};
+
+    raw_labels.forEach( label =>
+      labels[label.id] = {
+        color: label.color,
+        name: label.name
+      }
+    );
+
+    callback.apply(labels);
+  });
+}
+
 
 function trello_extract_board_from_url() {
   const current = window.location.pathname.split("/");

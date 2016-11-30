@@ -13,8 +13,9 @@ function rename_callbacks() {
   });
 
   $(document).on('click', '.pd-add', function() {
-    patternDialog.modify("", function() {
+    patternDialog.modify("", function(name) {
       renameDialog.show(current_list);
+      $('#rd-select-pattern option[value="' + name + '"]').attr('selected', 'selected');
     });
   });
 

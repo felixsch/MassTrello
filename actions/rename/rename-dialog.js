@@ -15,14 +15,21 @@ const renameDialog = {
     this.refresh_pattern($dialog);
 
     trello_get_list_by_obj(listobj, function () {
-      const selection = this.cards.map(card => mk_option(card.name, card.id));
-      const preview = this.cards.map(card =>
-        mk_option(card.name, card.id, "card-" + card.id));
+      const board     = trello_extract_board_from_url();
+      const cards     = this.cards;
 
-      $dialog.find('#rd-selection').html(selection);
-      $dialog.find('#rd-preview').html(preview);
+      trello_get_labels_by_board(board, function() {
+        const selection = cards.map(card =>
+          mk_option(card.name, card.id, undefined, card.idLabels, this));
+        const preview   = cards.map(card =>
+          mk_option(card.name, card.id, "card-" + card.id));
 
-      callback.apply($dialog);
+        $dialog.find('#rd-selection').html(selection);
+        $dialog.find('#rd-preview').html(preview);
+
+        callback.apply($dialog);
+      });
+
     });
   },
 
@@ -31,7 +38,7 @@ const renameDialog = {
     $('#rd-selection option').each(function() {
       const $pcard   = $($('#card-' + $(this).val()));
       $pcard.removeClass("ma-bold");
-      $pcard.text($(this).text());
+      $pcard.text($(this).data('text'));
     });
 
     try {
@@ -47,7 +54,7 @@ const renameDialog = {
 
     $('#rd-selection option:checked').each(function(i) {
       const pcard   = $('#card-' + $(this).val());
-      const preview = renameDialog._replace(i, $(this).text(), re, $(replace).val());
+      const preview = renameDialog._replace(i, $(this).data('text'), re, $(replace).val());
 
       pcard.addClass("ma-bold");
       pcard.text(preview);
@@ -57,7 +64,7 @@ const renameDialog = {
   apply_changes: function(regex, replace, callback) {
     $('#rd-selection option:checked').each(function(i) {
       const re       = RegExp(regex);
-      const new_name = renameDialog._replace(i, $(this).text(), re, replace);
+      const new_name = renameDialog._replace(i, $(this).data('text'), re, replace);
 
       Trello.put("cards/" + $(this).val() + "/name", {value: new_name});
     }).promise().done(function () {
